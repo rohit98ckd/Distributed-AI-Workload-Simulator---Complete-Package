@@ -1,0 +1,32 @@
+collect_detailed_stats: true
+description: Medium-scale training with 32 GPUs (4 nodes)
+enable_visualization: true
+hardware:
+  compute_tflops: 312.0
+  gpu_model: A100
+  memory_gb: 80.0
+  network_bandwidth_gbps: 100.0
+  num_gpus_per_node: 8
+model:
+  hidden_size: 1280
+  model_type: transformer
+  num_attention_heads: 20
+  num_layers: 36
+  sequence_length: 1024
+  total_flops: null
+  total_parameters: null
+  vocab_size: 50257
+name: medium_scale_experiment
+network:
+  base_latency_us: 5.0
+  switch_latency_us: 1.0
+  topology_type: full_mesh
+output_directory: ./results
+training:
+  batch_size_per_gpu: 16
+  communication_pattern: ring_allreduce
+  gradient_accumulation_steps: 1
+  gradient_checkpointing: false
+  mixed_precision: false
+  num_iterations: 100
+  num_nodes: 4

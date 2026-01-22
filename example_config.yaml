@@ -1,0 +1,45 @@
+# Example Configuration for Distributed AI Workload Simulator
+# ===========================================================
+# This configuration simulates training a large language model
+# on a cluster of 128 GPUs (16 nodes with 8 H100 GPUs each)
+
+name: "large_scale_llm_training"
+description: "Production-scale LLM training with 128 H100 GPUs"
+
+# Hardware Configuration
+hardware:
+  gpu_model: "H100"
+  compute_tflops: 989.0          # FP32 TFLOPS
+  memory_gb: 80.0                # GPU memory in GB
+  network_bandwidth_gbps: 200.0  # Network bandwidth in GB/s (NVLink + InfiniBand)
+  num_gpus_per_node: 8           # GPUs per compute node
+
+# Model Configuration
+model:
+  model_type: "transformer"      # Options: transformer, resnet, custom
+  num_layers: 48                 # Number of transformer layers
+  hidden_size: 2048              # Hidden dimension size
+  num_attention_heads: 32        # Number of attention heads
+  sequence_length: 2048          # Maximum sequence length
+  vocab_size: 50257              # Vocabulary size
+
+# Training Configuration
+training:
+  batch_size_per_gpu: 8          # Batch size per GPU
+  num_iterations: 100            # Number of training iterations to simulate
+  num_nodes: 16                  # Number of compute nodes (16 * 8 = 128 GPUs)
+  communication_pattern: "ring_allreduce"  # Options: ring_allreduce, tree_allreduce, reduce_scatter
+  gradient_accumulation_steps: 1 # Gradient accumulation for larger effective batch
+  mixed_precision: true          # Use FP16/BF16 mixed precision
+  gradient_checkpointing: false  # Activation checkpointing for memory savings
+
+# Network Configuration
+network:
+  topology_type: "torus_2d"      # Options: full_mesh, ring, tree, torus_2d
+  base_latency_us: 5.0           # Base network latency in microseconds
+  switch_latency_us: 1.0         # Additional latency per switch hop
+
+# Analysis and Output Settings
+collect_detailed_stats: true     # Collect detailed event statistics
+enable_visualization: true       # Generate performance plots
+output_directory: "./results/large_scale_experiment"

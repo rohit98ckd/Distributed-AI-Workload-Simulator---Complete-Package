@@ -1,0 +1,44 @@
+[
+  {
+    "bottleneck_type": "compute",
+    "severity": 1.0,
+    "affected_layers": [],
+    "recommendations": [
+      "Consider using more powerful GPUs (e.g., H100 vs A100)",
+      "Reduce model size or batch size if memory allows",
+      "Enable mixed precision training (FP16/BF16)",
+      "Optimize kernel implementations for compute-heavy layers"
+    ],
+    "metrics": {
+      "avg_compute_utilization": 1.0,
+      "max_compute_utilization": 1.0
+    }
+  },
+  {
+    "bottleneck_type": "network",
+    "severity": 0.9002372519004406,
+    "affected_layers": [],
+    "recommendations": [
+      "Network communication is bottleneck (>50% of iteration time)",
+      "Use gradient compression (e.g., PowerSGD, 1-bit SGD)",
+      "Increase gradient accumulation steps to reduce sync frequency",
+      "Consider hierarchical all-reduce for multi-node setups",
+      "Upgrade network interconnect (e.g., InfiniBand, NVLink)"
+    ],
+    "metrics": {
+      "avg_communication_ratio": 0.9002372519004406,
+      "max_communication_ratio": 0.9002372519004409
+    }
+  },
+  {
+    "bottleneck_type": "memory",
+    "severity": 0.0,
+    "affected_layers": [],
+    "recommendations": [],
+    "metrics": {
+      "avg_memory_usage_ratio": 0.0,
+      "max_memory_usage_ratio": 0.0,
+      "peak_memory_gb": 0.0
+    }
+  }
+]

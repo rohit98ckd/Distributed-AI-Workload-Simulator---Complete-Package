@@ -1,0 +1,43 @@
+{
+  "config": {
+    "name": "small_scale_experiment",
+    "description": "Small-scale training with 4 GPUs",
+    "hardware": {
+      "gpu_model": "A100",
+      "compute_tflops": 312.0,
+      "memory_gb": 80.0,
+      "network_bandwidth_gbps": 100.0,
+      "num_gpus_per_node": 8
+    },
+    "model": {
+      "model_type": "transformer",
+      "num_layers": 12,
+      "hidden_size": 768,
+      "num_attention_heads": 12,
+      "sequence_length": 512,
+      "vocab_size": 30522,
+      "total_parameters": null,
+      "total_flops": null
+    },
+    "training": {
+      "batch_size_per_gpu": 32,
+      "num_iterations": 100,
+      "num_nodes": 1,
+      "communication_pattern": "ring_allreduce",
+      "gradient_accumulation_steps": 1,
+      "mixed_precision": false,
+      "gradient_checkpointing": false
+    },
+    "network": {
+      "topology_type": "full_mesh",
+      "base_latency_us": 5.0,
+      "switch_latency_us": 1.0
+    },
+    "collect_detailed_stats": true,
+    "enable_visualization": true,
+    "output_directory": "./results"
+  },
+  "simulation_stats": {
+    "total_events": 54400,
+    "events_by_type": {
+      
